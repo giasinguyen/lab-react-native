@@ -1,10 +1,10 @@
 {
-  "name": "nguyentrangiasi_week01",
+  "name": "exercise_1",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon --watch src --exec ts-node src/index.ts",
+    "dev": "ts-node src/index.ts",
     "build": "tsc",
     "start:build": "node dist/index.js"
   },
@@ -13,7 +13,6 @@
   "license": "ISC",
   "type": "commonjs",
   "devDependencies": {
-    "nodemon": "^3.1.10",
     "ts-node": "^10.9.2",
     "typescript": "^5.9.2"
   }
