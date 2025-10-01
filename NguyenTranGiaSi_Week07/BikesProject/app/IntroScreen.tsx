@@ -2,13 +2,13 @@ import React from 'react';
 import {
   View,
   Text,
+  Image,
   StyleSheet,
   TouchableOpacity,
-  Image,
 } from 'react-native';
 import { useRouter } from 'expo-router';
 
-export default function IntroScreen() {
+const IntroScreen: React.FC = () => {
   const router = useRouter();
 
   return (
@@ -31,18 +31,43 @@ export default function IntroScreen() {
       </TouchableOpacity>
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
-  container: { flex: 1, justifyContent: 'center', alignItems: 'center', padding: 20 },
-  title: { textAlign: 'center', fontSize: 18, marginBottom: 20 },
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 20,
+  },
+  title: {
+    textAlign: 'center',
+    fontSize: 18,
+    marginBottom: 20,
+  },
   imageContainer: {
     backgroundColor: '#E94141',
     padding: 40,
     borderRadius: 10,
   },
-  image: { width: 210, height: 200 },
-  brand: { fontSize: 20, fontWeight: 'bold', marginVertical: 20 },
-  button: { backgroundColor: 'red', padding: 15, borderRadius: 10 },
-  buttonText: { color: '#fff', fontWeight: 'bold' },
+  image: {
+    width: 210,
+    height: 200,
+  },
+  brand: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginVertical: 20,
+  },
+  button: {
+    backgroundColor: 'red',
+    padding: 15,
+    borderRadius: 10,
+  },
+  buttonText: {
+    color: '#fff',
+    fontWeight: 'bold',
+  },
 });
+
+export default IntroScreen;
