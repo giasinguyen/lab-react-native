@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import { View, Text, TextInput, Pressable, StyleSheet } from 'react-native';
-import { useLocalSearchParams, useRouter } from 'expo-router';
-import { useDispatch, useSelector } from 'react-redux';
-import { selectPostsState } from '../../src/store';
-import { updatePost, deletePost } from '../../src/postSlice';
+import React, { useEffect, useState } from "react";
+import { View, Text, TextInput, Pressable, StyleSheet } from "react-native";
+import { useLocalSearchParams, useRouter } from "expo-router";
+import { useDispatch, useSelector } from "react-redux";
+import { selectPostsState } from "../../src/store";
+import { updatePost, deletePost } from "../../src/postSlice";
 
 export default function PostDetailScreen() {
   const { id } = useLocalSearchParams(); // id dạng string
@@ -13,10 +13,11 @@ export default function PostDetailScreen() {
   const router = useRouter();
   const { items } = useSelector(selectPostsState);
 
-  const existing = items.find(p => p.id === numericId);
+  const existing = items.find((p) => p.id === numericId);
+  // const existing = items.find((p) => p.id === id);
 
-  const [title, setTitle] = useState(existing?.title || '');
-  const [body, setBody] = useState(existing?.body || '');
+  const [title, setTitle] = useState(existing?.title || "");
+  const [body, setBody] = useState(existing?.body || "");
 
   // đồng bộ lại khi existing thay đổi
   useEffect(() => {
@@ -44,7 +45,7 @@ export default function PostDetailScreen() {
 
   const handleDelete = async () => {
     await dispatch(deletePost(numericId));
-    router.replace('/');
+    router.replace("/");
   };
 
   return (
@@ -66,10 +67,10 @@ export default function PostDetailScreen() {
         </Pressable>
 
         <Pressable
-          style={[styles.button, { borderColor: 'red' }]}
+          style={[styles.button, { borderColor: "red" }]}
           onPress={handleDelete}
         >
-          <Text style={{ color: 'red' }}>Delete</Text>
+          <Text style={{ color: "red" }}>Delete</Text>
         </Pressable>
       </View>
     </View>
@@ -78,14 +79,14 @@ export default function PostDetailScreen() {
 
 const styles = StyleSheet.create({
   container: { flex: 1, padding: 16, gap: 12 },
-  label: { fontWeight: 'bold' },
+  label: { fontWeight: "bold" },
   input: {
     borderWidth: 1,
     borderRadius: 8,
     padding: 10,
   },
   row: {
-    flexDirection: 'row',
+    flexDirection: "row",
     gap: 12,
     marginTop: 16,
   },
@@ -94,6 +95,6 @@ const styles = StyleSheet.create({
     padding: 12,
     borderWidth: 1,
     borderRadius: 8,
-    alignItems: 'center',
+    alignItems: "center",
   },
 });
