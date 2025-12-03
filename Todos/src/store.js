@@ -1,0 +1,10 @@
+import { configureStore } from "@reduxjs/toolkit";
+import todosSlice from "./todosSlice";
+
+export const store = configureStore({
+  reducer: {
+    todos: todosSlice,
+  },
+});
+
+export const selectTodosState = (state) => state.todos;
