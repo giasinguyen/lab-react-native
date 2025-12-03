@@ -5,17 +5,19 @@ import {
   ActivityIndicator,
   Pressable,
   FlatList,
+  TextInput,
 } from "react-native";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchTodos, deleteTodo } from "@/src/todosSlice";
 import { selectTodosState } from "@/src/store";
-import { useEffect } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 export default function Index() {
   const router = useRouter();
   const dispatch = useDispatch();
   const { items, loading, error } = useSelector(selectTodosState);
+  const [searchName, setSearchName] = useState("");
 
   useEffect(() => {
     dispatch(fetchTodos());
@@ -25,6 +27,17 @@ export default function Index() {
     await dispatch(deleteTodo(id));
     router.replace("/");
   };
+
+  const handleSearchNameChange = (text) => {
+    setSearchName(text);
+  };
+
+  const filterSearchName = useMemo(() => {
+    if (!searchName) return items;
+    return items.filter((item) =>
+      item.title.toLowerCase().includes(searchName.toLowerCase())
+    );
+  }, [items, searchName]);
 
   if (loading) {
     return (
@@ -59,12 +72,15 @@ export default function Index() {
 
   return (
     <View style={styles.container}>
+
+      <TextInput value={searchName} onChangeText={handleSearchNameChange}/>
+
       <Pressable onPress={() => router.push(`todo/new`)}>
         <Text>Create New Todo</Text>
       </Pressable>
 
       <FlatList
-        data={items}
+        data={filterSearchName}
         keyExtractor={(item) => item.id.toString()}
         renderItem={renderItem}
       />
