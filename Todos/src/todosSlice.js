@@ -9,22 +9,25 @@ export const fetchTodos = createAsyncThunk("todos/fetchAll", async () => {
   return data;
 });
 
-export const createTodo = createAsyncThunk("todos/create", async (title) => {
-  const res = await fetch(BASE_URL, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ title }),
-  });
+export const createTodo = createAsyncThunk(
+  "todos/create",
+  async ({ title }) => {
+    const res = await fetch(BASE_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ title }),
+    });
 
-  if (!res.ok) throw new Error("Fail to create!");
-  const data = await res.json();
-  return data;
-});
+    if (!res.ok) throw new Error("Fail to create!");
+    const data = await res.json();
+    return data;
+  }
+);
 
 export const updateTodo = createAsyncThunk(
   "todos/update",
   async ({ id, title }) => {
-    const res = await fetch("${BASE_URL}/${id}", {
+    const res = await fetch(`${BASE_URL}/${id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ id, title }),
@@ -36,8 +39,8 @@ export const updateTodo = createAsyncThunk(
   }
 );
 
-export const deleteToto = createAsyncThunk("todos/delete", async (id) => {
-  const res = await fetch("${BASE_URL}/${id}", {
+export const deleteTodo = createAsyncThunk("todos/delete", async (id) => {
+  const res = await fetch(`${BASE_URL}/${id}`, {
     method: "DELETE",
   });
 
@@ -71,10 +74,10 @@ const todosSlice = createSlice({
         state.items.unshift(action.payload);
       })
       .addCase(updateTodo.fulfilled, (state, action) => {
-        const idx = state.items.findIndex((p) => p.id == action.payload.id);
+        const idx = state.items.findIndex((p) => p.id === action.payload.id);
         if (idx !== -1) state.items[idx] = action.payload;
       })
-      .addCase(deleteToto.fulfilled, (state, action) => {
+      .addCase(deleteTodo.fulfilled, (state, action) => {
         state.items = state.items.filter((p) => p.id !== action.payload);
       });
   },

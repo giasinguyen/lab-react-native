@@ -6,9 +6,9 @@ import {
   Pressable,
   FlatList,
 } from "react-native";
-import { useRouter } from "expo-router";
+import { useLocalSearchParams, useRouter } from "expo-router";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchTodos } from "@/src/todosSlice";
+import { fetchTodos, deleteTodo } from "@/src/todosSlice";
 import { selectTodosState } from "@/src/store";
 import { useEffect } from "react";
 
@@ -20,6 +20,11 @@ export default function Index() {
   useEffect(() => {
     dispatch(fetchTodos());
   }, [dispatch]);
+
+  const handleDelete = async (id) => {
+    await dispatch(deleteTodo(id));
+    router.replace("/");
+  };
 
   if (loading) {
     return (
@@ -46,11 +51,18 @@ export default function Index() {
       onPress={() => router.push(`todo/${item.id}`)}
     >
       <Text>{item.title}</Text>
+      <Pressable style={{ color: "red" }} onPress={() => handleDelete(item.id)}>
+        Delete
+      </Pressable>
     </Pressable>
   );
 
   return (
     <View style={styles.container}>
+      <Pressable onPress={() => router.push(`todo/new`)}>
+        <Text>Create New Todo</Text>
+      </Pressable>
+
       <FlatList
         data={items}
         keyExtractor={(item) => item.id.toString()}
