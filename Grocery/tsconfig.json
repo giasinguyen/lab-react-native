@@ -13,5 +13,5 @@
     "**/*.ts",
     "**/*.tsx",
     "nativewind-env.d.ts"
-, "src/features/store.js", "src/features/todosSlice.js"  ]
+, "src/app/index.jsx", "src/app/_layout.jsx"  ]
 }
