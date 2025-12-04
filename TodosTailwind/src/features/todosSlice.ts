@@ -49,6 +49,22 @@ export const deleteTodo = createAsyncThunk("todos/deleteTodo", async (id) => {
   return id;
 });
 
+export const toggleTodo = createAsyncThunk(
+  "todos/toggleTodo",
+  async ({ id, completed }) => {
+    const res = await fetch(`${BASE_URL}/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ completed }),
+    });
+    if (!res.ok) throw new Error("Error to fetch");
+    const data = await res.json();
+    return data;
+  }
+);
+
 const todosSlice = createSlice({
   name: "todos",
   initialState: {
@@ -67,6 +83,10 @@ const todosSlice = createSlice({
         state.items.unshift(action.payload);
       })
       .addCase(updateTodo.fulfilled, (state, action) => {
+        const idx = state.items.findIndex((p) => p.id === action.payload.id);
+        if (idx !== -1) state.items[idx] = action.payload;
+      })
+      .addCase(toggleTodo.fulfilled, (state, action) => {
         const idx = state.items.findIndex((p) => p.id === action.payload.id);
         if (idx !== -1) state.items[idx] = action.payload;
       })
