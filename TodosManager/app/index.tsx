@@ -23,14 +23,14 @@ export default function Index() {
 
   if (loading) {
     return (
-      <View style={styles.center}>
+      <View>
         <ActivityIndicator />
       </View>
     );
   }
   const renderItem = ({ item }) => (
     <Pressable
-      style={styles.item}
+      className="p-5 bg-blue"
       onPress={() => router.push(`todo/${item.id}`)}
     >
       <Text>{item.title}</Text>
@@ -38,7 +38,7 @@ export default function Index() {
   );
 
   return (
-    <View style={styles.container}>
+    <View className="flex-1 p-10 gap-1 bg-blue">
       <FlatList
         data={items}
         keyExtractor={(item) => item.id.toString()}
@@ -49,15 +49,5 @@ export default function Index() {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 16,
-    gap: 12,
-  },
-  item: {
-    padding: 12,
-    borderRadius: 8,
-    borderWidth: 1,
-    marginBottom: 8,
-  },
+  
 });
