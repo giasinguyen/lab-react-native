@@ -10,6 +10,7 @@ export default function Layout() {
     <Provider store={store}>
       <Tabs>
         <Tabs.Screen name="index" options={{ title: "Grocery List" }} />
+        <Tabs.Screen name="form" options={{ title: "Grocery Form" }} />
       </Tabs>
     </Provider>
   );
